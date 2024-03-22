@@ -1,6 +1,8 @@
 console.log("Service Worker Loaded");
-let cacheData = "appV1";
 
+const cacheData = "appV1";
+
+// install the cache
 this.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(cacheData).then((cache) => {
@@ -16,6 +18,7 @@ this.addEventListener("install", (event) => {
   );
 });
 
+// refetch the cache
 this.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((resp) => {
