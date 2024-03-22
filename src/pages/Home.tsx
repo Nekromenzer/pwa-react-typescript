@@ -1,13 +1,12 @@
-import React from "react";
-import Nav from "../components/Nav";
+import { useQuery } from "@tanstack/react-query";
+import Wrapper from "../components/Wrapper";
 
 const Home = () => {
-  return (
-    <div>
-      <Nav />
-      Home
-    </div>
-  );
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ["todos"],
+    queryFn: () => {},
+  });
+  return <Wrapper header="Fetch data list">asdasd</Wrapper>;
 };
 
 export default Home;
