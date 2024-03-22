@@ -4,7 +4,15 @@ const Nav = () => {
   return (
     <div>
       <nav>
-        <ul>
+        <ul
+          style={{
+            listStyle: "none",
+            display: "flex",
+            gap: "1rem",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
+        >
           <li>
             <Link to="/">Home</Link>
           </li>
