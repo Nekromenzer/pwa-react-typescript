@@ -5,7 +5,9 @@ const cacheData = "appV1";
 // install the cache
 this.addEventListener("install", (event) => {
   event.waitUntil(
+    // open the cache
     caches.open(cacheData).then((cache) => {
+      // add all the files to the cache
       cache.addAll([
         "/static/js/main.chunk.js",
         "/static/js/0.chunk.js",
@@ -20,11 +22,14 @@ this.addEventListener("install", (event) => {
 
 // refetch the cache
 this.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((resp) => {
-      if (resp) {
-        return resp;
-      }
-    })
-  );
+  // only load from cache if offline
+  if (!navigator.onLine) {
+    event.respondWith(
+      caches.match(event.request).then((resp) => {
+        if (resp) {
+          return resp;
+        }
+      })
+    );
+  }
 });
