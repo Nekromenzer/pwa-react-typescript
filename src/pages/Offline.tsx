@@ -6,11 +6,17 @@ const Offline = () => {
   const queryClient = useQueryClient();
 
   // for more info - https://tanstack.com/query/latest/docs/framework/react/reference/useQuery
-  const { data: fetchedExercises } = useQuery({
+  const {
+    data: fetchedExercises,
+    fetchStatus,
+    isRefetching,
+    dataUpdatedAt,
+  } = useQuery({
     queryKey: ["exercises"],
     queryFn: () => fakeApi.getTodos(),
+    // The time in milliseconds after data is considered stale
     staleTime: Infinity,
-    // gcTime is set to Infinity to prevent the query from being garbage collected when the user goes offline.
+    // gcTime The time in milliseconds that unused/inactive cache data remains in memory.
     // default is 5 min
     gcTime: Infinity,
   });
@@ -52,6 +58,13 @@ const Offline = () => {
   return (
     // note - for all offline workarounds, refer APP.tsx for the offline banner and the onlineManager
     <Wrapper header="Offline Data Manipulations">
+      <br />
+      <h5>Req states</h5>
+      <p>fetch state - {fetchStatus}</p>
+      <p>isRefetching - {isRefetching ? "true ✔️" : "false ❌"}</p>
+      <p>dataUpdatedAt - {dataUpdatedAt}</p>
+      <br />
+
       {fetchedExercises?.map((exercise) => (
         <div key={exercise.id}>
           <input
