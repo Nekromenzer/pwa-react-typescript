@@ -84,7 +84,7 @@ function App() {
         }
       />
       <Route
-        path="infinitescroll"
+        path="infinitqueries"
         element={
           <SuspenseWrapper>
             <InfiniteScroll />
