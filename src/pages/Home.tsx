@@ -22,6 +22,7 @@ const Home = () => {
   } = useQuery({
     queryKey: ["fetchCatFact"],
     queryFn: fetchCatData,
+    // this query will be executed only if the first query is successful
     enabled: !!FBCDData?.bpi?.USD?.rate,
   });
 

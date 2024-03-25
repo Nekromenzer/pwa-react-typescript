@@ -20,6 +20,9 @@ const Nav = () => {
             <Link to="/offline">Offline</Link>
           </li>
           <li>
+            <Link to="/websockets">Websocket</Link>
+          </li>
+          <li>
             <Link to="/about">About</Link>
           </li>
         </ul>
