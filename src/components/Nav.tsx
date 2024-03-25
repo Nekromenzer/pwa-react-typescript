@@ -26,7 +26,7 @@ const Nav = () => {
             <Link to="/infinitqueries">infinite Queries</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/parallelSerial">Parallel/Serial </Link>
           </li>
         </ul>
       </nav>
