@@ -17,6 +17,7 @@ import Offline from "./pages/Offline";
 import WebSockets from "./pages/WebSockets";
 import InfiniteQueries from "./pages/InfiniteQueries";
 import ParallelSerial from "./pages/ParallelSerial";
+import Test from "./pages/Test";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const About = lazy(() => import("./pages/About"));
@@ -97,6 +98,14 @@ function App() {
         element={
           <SuspenseWrapper>
             <ParallelSerial />
+          </SuspenseWrapper>
+        }
+      />
+      <Route
+        path="test"
+        element={
+          <SuspenseWrapper>
+            <Test />
           </SuspenseWrapper>
         }
       />
