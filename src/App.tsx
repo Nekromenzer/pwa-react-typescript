@@ -1,9 +1,6 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Offline from "./pages/Offline";
 
 //  for offline support
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
@@ -11,9 +8,14 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient } from "@tanstack/react-query";
 import OfflineBanner from "./components/OfflineBanner";
-import WebSockets from "./pages/WebSockets";
 // custom hook for check online status
 import { useIsAppOnline } from "./hooks/useIsAppOnline";
+
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Offline from "./pages/Offline";
+import InfiniteScroll from "./pages/infiniteScroll";
+import WebSockets from "./pages/WebSockets";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const About = lazy(() => import("./pages/About"));
@@ -48,7 +50,7 @@ function App() {
         }
       />
       <Route
-        path="/about"
+        path="about"
         element={
           <SuspenseWrapper>
             <About />
@@ -56,7 +58,7 @@ function App() {
         }
       />
       <Route
-        path="/offline"
+        path="offline"
         element={
           <SuspenseWrapper>
             <PersistQueryClientProvider
@@ -74,10 +76,18 @@ function App() {
         }
       />
       <Route
-        path="/websockets"
+        path="websockets"
         element={
           <SuspenseWrapper>
             <WebSockets />
+          </SuspenseWrapper>
+        }
+      />
+      <Route
+        path="infinitescroll"
+        element={
+          <SuspenseWrapper>
+            <InfiniteScroll />
           </SuspenseWrapper>
         }
       />

@@ -23,6 +23,9 @@ const Nav = () => {
             <Link to="/websockets">Websocket</Link>
           </li>
           <li>
+            <Link to="/infinitescroll">infinite Scroll</Link>
+          </li>
+          <li>
             <Link to="/about">About</Link>
           </li>
         </ul>
