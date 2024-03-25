@@ -18,6 +18,7 @@ import WebSockets from "./pages/WebSockets";
 import InfiniteQueries from "./pages/InfiniteQueries";
 import ParallelSerial from "./pages/ParallelSerial";
 import Test from "./pages/Test";
+import Mutations from "./pages/Mutations";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const About = lazy(() => import("./pages/About"));
@@ -106,6 +107,14 @@ function App() {
         element={
           <SuspenseWrapper>
             <Test />
+          </SuspenseWrapper>
+        }
+      />
+      <Route
+        path="mutations"
+        element={
+          <SuspenseWrapper>
+            <Mutations />
           </SuspenseWrapper>
         }
       />
