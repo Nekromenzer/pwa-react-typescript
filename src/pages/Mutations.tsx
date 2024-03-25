@@ -27,6 +27,8 @@ const Mutations = () => {
     body: "Some testing body",
     userId: 1,
   };
+
+  // refer - https://tanstack.com/query/latest/docs/framework/react/guides/mutations
   return (
     <Wrapper header="Mutations">
       {mutation.isPending ? (
