@@ -30,9 +30,9 @@ const Home = () => {
       <div>
         <Section
           loading={FBCDIsPending}
-          header="01. fetch data"
+          header="01. fetch data Bitcoin price"
           error={FBCDError}
-          data={FBCDData?.bpi?.USD?.rate}
+          data={`${FBCDData?.bpi?.USD?.rate} USD`}
         />
 
         <Section
