@@ -28,6 +28,8 @@ function InfiniteQueries() {
     // https://tanstack.com/query/latest/docs/framework/react/guides/infinite-queries
   });
 
+  console.log(data);
+
   return (
     <Wrapper header="Infinite Queries">
       {status === "pending" ? (
@@ -35,13 +37,14 @@ function InfiniteQueries() {
       ) : status === "error" ? (
         <p>Error: {error.message}</p>
       ) : (
-        data?.pages.map((group, i) => (
-          <React.Fragment key={i}>
-            {group.data.map((project: any) => (
-              <p key={project.id}>{project.name}</p>
-            ))}
-          </React.Fragment>
-        ))
+        // data?.pages.map((group, i) => (
+        //   <React.Fragment key={i}>
+        //     {group?.data?.map((project: any) => (
+        //       <p key={project.id}>{project.name}</p>
+        //     ))}
+        //   </React.Fragment>
+        // ))
+        <div></div>
       )}
       <div>
         <button
