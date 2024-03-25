@@ -39,6 +39,10 @@ function App() {
     throttleTime: 3000,
   });
 
+  // Indexed DB is faster, stores more than 5MB, and doesn't require serialization.
+  // That means it can readily store Javascript native types, such as Date and File.
+  // upto 250md
+  // read more - https://developer.chrome.com/docs/devtools/storage/indexeddb/?utm_source=devtools
   const createIDBPersister = (idbValidKey: IDBValidKey = "reactQuery") => {
     return {
       persistClient: async (client: PersistedClient) => {
