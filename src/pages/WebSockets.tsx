@@ -59,6 +59,7 @@ const WebSockets = () => {
 
   return (
     <Wrapper header="Websocket with react query">
+      <br />
       <div>
         {isFetching ? (
           <div>Loading...</div>
@@ -66,7 +67,8 @@ const WebSockets = () => {
           <div>
             {posts?.map((post: any) => (
               <div key={post.id}>
-                <h3>{post.title}</h3>
+                <h5>{post.title}</h5>
+                <p>{post.body}</p>
               </div>
             ))}
           </div>
