@@ -57,8 +57,6 @@ const WebSockets = () => {
   //call root od the folder index query provider
   useReactQuerySubscription();
 
-  usePost(1);
-
   return (
     <Wrapper header="Websocket with react query">
       <div>
@@ -69,8 +67,6 @@ const WebSockets = () => {
             {posts?.map((post: any) => (
               <div key={post.id}>
                 <h3>{post.title}</h3>
-                <p>{post.body}</p>
-                <button onClick={() => usePost}>Fetch post</button>
               </div>
             ))}
           </div>
