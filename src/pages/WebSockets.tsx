@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Wrapper from "../components/Wrapper";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -7,10 +7,10 @@ const fetchPosts = async () => {
   return res.json();
 };
 
-const fetchPost = async (id: number | string) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-  return res.json();
-};
+// const fetchPost = async (id: number | string) => {
+//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+//   return res.json();
+// };
 
 // note 👌
 // The purpose of websockets is to get live notifications of events happening on the server.
@@ -27,11 +27,11 @@ const WebSockets = () => {
     queryFn: fetchPosts,
   });
 
-  const usePost = (id: number | string) =>
-    useQuery({
-      queryKey: ["posts", "detail", id],
-      queryFn: () => fetchPost(id),
-    });
+  // const usePost = (id: number | string) =>
+  //   useQuery({
+  //     queryKey: ["posts", "detail", id],
+  //     queryFn: () => fetchPost(id),
+  //   });
 
   const useReactQuerySubscription = () => {
     useEffect(() => {
@@ -51,7 +51,7 @@ const WebSockets = () => {
       return () => {
         websocket.close();
       };
-    }, [queryClient]);
+    }, []);
   };
 
   //call root od the folder index query provider
