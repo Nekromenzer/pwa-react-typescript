@@ -9,16 +9,18 @@ import Offline from "./pages/Offline";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { onlineManager, QueryClient } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import OfflineBanner from "./components/OfflineBanner";
+import WebSockets from "./pages/WebSockets";
+// custom hook for check online status
+import { useIsAppOnline } from "./hooks/useIsAppOnline";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const About = lazy(() => import("./pages/About"));
 // const Offline = lazy(() => import("./pages/Offline"));
 
 function App() {
-  const [isOnline, setIsOnline] = useState(true);
-
+  const isOnline = useIsAppOnline();
   const queryClient = new QueryClient();
 
   // Create the persister
@@ -34,26 +36,6 @@ function App() {
       {children}
     </Suspense>
   );
-
-  useEffect(() => {
-    // set the query client to use the async storage persister
-    const handleConnectionChange = () => {
-      const status = navigator.onLine;
-      setIsOnline(status);
-      onlineManager.setOnline(status);
-    };
-
-    // initial check for online status
-    window.addEventListener("online", handleConnectionChange);
-    // initial check for online status
-    window.addEventListener("offline", handleConnectionChange);
-
-    // cleanup
-    return () => {
-      window.removeEventListener("online", handleConnectionChange);
-      window.removeEventListener("offline", handleConnectionChange);
-    };
-  }, []);
 
   return (
     <Routes>
@@ -88,6 +70,14 @@ function App() {
             >
               <Offline />
             </PersistQueryClientProvider>
+          </SuspenseWrapper>
+        }
+      />
+      <Route
+        path="/websockets"
+        element={
+          <SuspenseWrapper>
+            <WebSockets />
           </SuspenseWrapper>
         }
       />
