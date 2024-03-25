@@ -4,8 +4,13 @@ import { Route, Routes } from "react-router-dom";
 
 //  for offline support
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import {
+  PersistedClient,
+  Persister,
+  PersistQueryClientProvider,
+} from "@tanstack/react-query-persist-client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { get, set, del } from "idb-keyval"; // if u want to use indexDB
 import { QueryClient } from "@tanstack/react-query";
 import OfflineBanner from "./components/OfflineBanner";
 // custom hook for check online status
@@ -33,6 +38,20 @@ function App() {
     storage: AsyncStorage,
     throttleTime: 3000,
   });
+
+  const createIDBPersister = (idbValidKey: IDBValidKey = "reactQuery") => {
+    return {
+      persistClient: async (client: PersistedClient) => {
+        await set(idbValidKey, client);
+      },
+      restoreClient: async () => {
+        return await get<PersistedClient>(idbValidKey);
+      },
+      removeClient: async () => {
+        await del(idbValidKey);
+      },
+    } as Persister;
+  };
 
   const SuspenseWrapper = ({ children }: any) => (
     <Suspense fallback={<div>Loading...</div>}>
@@ -65,7 +84,7 @@ function App() {
         element={
           <SuspenseWrapper>
             <PersistQueryClientProvider
-              persistOptions={{ persister }}
+              persistOptions={{ persister: createIDBPersister() }}
               onSuccess={() =>
                 queryClient
                   .resumePausedMutations()
