@@ -32,7 +32,7 @@ const Nav = () => {
             <Link to="/test">Mutations</Link>
           </li>
           <li>
-            <Link to="/test">Test</Link>
+            <Link to="/mutations">Test</Link>
           </li>
         </ul>
       </nav>

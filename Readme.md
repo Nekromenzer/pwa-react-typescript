@@ -1,7 +1,5 @@
 <h1 align="center" id="title">PWA with TanStack Query</h1>
 
-<p align="center"><img src="" alt="project-image"></p>
-
 <p id="description">React JS app with offline capabilities with TanStack Query v5 offline power as well caching mechanism</p>
 
 <h2>🧐 Features</h2>
@@ -72,3 +70,7 @@ https://tanstack.com/query/latest/docs/framework/react/examples/offline
 
 8.  \*\*caching
     https://tanstack.com/query/v4/docs/framework/react/guides/caching
+
+<h2>Important tanstack refer projects</h2>
+1.  https://tanstack.com/query/v4/docs/framework/react/guides/caching
+2.  https://www.whitespectre.com/ideas/how-to-build-offline-first-react-native-apps-with-react-query-and-typescript/
