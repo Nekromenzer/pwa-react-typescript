@@ -6,6 +6,8 @@ const Offline = () => {
   const queryClient = useQueryClient();
 
   // for more info - https://tanstack.com/query/latest/docs/framework/react/reference/useQuery
+  // github code sample - https://github.com/whitespectre/rn_offline_first_with_react_query
+
   const {
     data: fetchedExercises,
     fetchStatus,
