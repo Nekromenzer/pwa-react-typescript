@@ -5,6 +5,9 @@ import Serial from "./parallelSerial/serial";
 
 const ParallelSerial = () => {
   const [type, setType] = useState("serial");
+
+  // plz refer - https://tanstack.com/query/latest/docs/framework/react/guides/request-waterfalls
+
   return (
     <Wrapper header="Parallel & Serial (disabled cache)">
       <br />
