@@ -23,7 +23,11 @@ function InfiniteQueries() {
     queryFn: fetchProjects,
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    // for more info regarding the options, check the docs
+    // pagination , max count stc
+    // https://tanstack.com/query/latest/docs/framework/react/guides/infinite-queries
   });
+
   return (
     <Wrapper header="Infinite Queries">
       {status === "pending" ? (
