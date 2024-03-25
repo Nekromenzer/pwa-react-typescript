@@ -14,8 +14,8 @@ import { useIsAppOnline } from "./hooks/useIsAppOnline";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Offline from "./pages/Offline";
-import InfiniteScroll from "./pages/infiniteScroll";
 import WebSockets from "./pages/WebSockets";
+import InfiniteQueries from "./pages/InfiniteQueries";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const About = lazy(() => import("./pages/About"));
@@ -87,7 +87,7 @@ function App() {
         path="infinitqueries"
         element={
           <SuspenseWrapper>
-            <InfiniteScroll />
+            <InfiniteQueries />
           </SuspenseWrapper>
         }
       />
