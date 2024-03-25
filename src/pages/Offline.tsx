@@ -19,6 +19,9 @@ const Offline = () => {
     // gcTime The time in milliseconds that unused/inactive cache data remains in memory.
     // default is 5 min
     gcTime: Infinity,
+    // networkMode - offlineFirst, onlineOnly, cacheFirst, cacheOnly, noPrefetch
+    // https://tanstack.com/query/latest/docs/framework/react/guides/network-mode
+    networkMode: "offlineFirst",
   });
 
   // local mutation when user is offline
