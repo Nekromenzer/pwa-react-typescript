@@ -29,10 +29,10 @@ const Nav = () => {
             <Link to="/parallelSerial">Parallel/Serial </Link>
           </li>
           <li>
-            <Link to="/test">Mutations</Link>
+            <Link to="/mutations">Mutations</Link>
           </li>
           <li>
-            <Link to="/mutations">Test</Link>
+            <Link to="/test">Test</Link>
           </li>
         </ul>
       </nav>
