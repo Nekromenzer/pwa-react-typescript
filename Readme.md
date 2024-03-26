@@ -72,5 +72,5 @@ https://tanstack.com/query/latest/docs/framework/react/examples/offline
     https://tanstack.com/query/v4/docs/framework/react/guides/caching
 
 <h2>Important tanstack refer projects</h2>
-1.  https://tanstack.com/query/v4/docs/framework/react/guides/caching
+1.  https://tanstack.com/query/v4/docs/framework/react/guides/caching <br/>
 2.  https://www.whitespectre.com/ideas/how-to-build-offline-first-react-native-apps-with-react-query-and-typescript/
