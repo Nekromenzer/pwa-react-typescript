@@ -33,7 +33,7 @@ function App() {
   const isOnline = useIsAppOnline();
   const queryClient = new QueryClient();
 
-  // Create the persister
+  // Create the persister - use local storage
   const persister = createAsyncStoragePersister({
     storage: AsyncStorage,
     throttleTime: 3000,
