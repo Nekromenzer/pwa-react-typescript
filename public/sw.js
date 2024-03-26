@@ -22,14 +22,35 @@ this.addEventListener("install", (event) => {
 
 // refetch the cache
 this.addEventListener("fetch", (event) => {
-  // only load from cache if offline
-  if (!navigator.onLine) {
-    event.respondWith(
-      caches.match(event.request).then((resp) => {
-        if (resp) {
-          return resp;
-        }
-      })
-    );
-  }
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      // Return cached response if found
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      // If request is not cached, fetch it from the network
+      return fetch(event.request)
+        .then((networkResponse) => {
+          // Cache the fetched response
+          if (event.request.method === "GET") {
+            const clonedResponse = networkResponse.clone();
+            caches.open(cacheData).then((cache) => {
+              cache.put(event.request, clonedResponse);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // If fetching from network fails and there's no cached response, respond with a custom offline message
+          return new Response(
+            "You are offline. Please check your internet connection.",
+            {
+              status: 503,
+              statusText: "Offline",
+            }
+          );
+        });
+    })
+  );
 });
