@@ -34,8 +34,6 @@ npm install
 npm start
 ```
 
-<h2>🍰 Contribution Guidelines:</h2>
-
 <h2>💻 Built with</h2>
 
 Technologies used in the project:
@@ -46,9 +44,13 @@ Technologies used in the project:
 - service workers
 
 <h2>Important links</h2>
-    
-01. **offline
-https://tanstack.com/query/latest/docs/framework/react/examples/offline
+
+<p>Official doc 👉 https://tanstack.com/query/latest/docs/framework/react/devtools</p>
+<p>Github repo 👉 https://github.com/tanstack/query</p>
+<p>Working with ts - https://tanstack.com/query/latest/docs/framework/react/typescript</p>
+
+1.  \*\*offline
+    https://tanstack.com/query/latest/docs/framework/react/examples/offline
 
 2.  \*\*request water falll
     https://tanstack.com/query/latest/docs/framework/react/guides/request-waterfalls
@@ -70,6 +72,12 @@ https://tanstack.com/query/latest/docs/framework/react/examples/offline
 
 8.  \*\*caching
     https://tanstack.com/query/v4/docs/framework/react/guides/caching
+
+9.  \*\*Window focus fetching
+    https://tanstack.com/query/latest/docs/framework/react/guides/window-focus-refetching
+
+10. \*\*Query invalidation
+    https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation
 
 <h2>Important tanstack refer projects</h2>
 1.  https://tanstack.com/query/v4/docs/framework/react/guides/caching <br/>
