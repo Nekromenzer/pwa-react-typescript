@@ -24,6 +24,7 @@ import InfiniteQueries from "./pages/InfiniteQueries";
 import ParallelSerial from "./pages/ParallelSerial";
 import Test from "./pages/Test";
 import Mutations from "./pages/Mutations";
+import Batching from "./pages/Batching";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const About = lazy(() => import("./pages/About"));
@@ -57,7 +58,7 @@ function App() {
     } as Persister;
   };
 
-  const SuspenseWrapper = ({ children }: any) => (
+  const SuspenseWrapper = ({ children, noSuspense }: any) => (
     <Suspense fallback={<div>Loading...</div>}>
       {" "}
       {!isOnline && <OfflineBanner />}
@@ -138,6 +139,14 @@ function App() {
         element={
           <SuspenseWrapper>
             <Mutations />
+          </SuspenseWrapper>
+        }
+      />
+      <Route
+        path="batching"
+        element={
+          <SuspenseWrapper>
+            <Batching />
           </SuspenseWrapper>
         }
       />

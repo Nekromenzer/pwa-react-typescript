@@ -32,6 +32,9 @@ const Nav = () => {
             <Link to="/mutations">Mutations</Link>
           </li>
           <li>
+            <Link to="/batching">Batching</Link>
+          </li>
+          <li>
             <Link to="/test">Test</Link>
           </li>
         </ul>
