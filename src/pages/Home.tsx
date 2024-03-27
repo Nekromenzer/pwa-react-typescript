@@ -34,6 +34,9 @@ const Home = () => {
     queryFn: fetchDogData,
   });
 
+  // cancel query
+  // doc - https://tanstack.com/query/v3/docs/framework/react/guides/query-cancellation
+
   return (
     <Wrapper header="Fetch data list">
       <div>
