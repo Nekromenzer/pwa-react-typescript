@@ -22,21 +22,28 @@ this.addEventListener("install", (event) => {
 
 // refetch the cache
 this.addEventListener("fetch", (event) => {
+  const { request } = event;
+
+  // Exclude requests with 'chrome-extension' scheme
+  if (request.url.startsWith("chrome-extension://")) {
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
+    caches.match(request).then((cachedResponse) => {
       // Return cached response if found
       if (cachedResponse) {
         return cachedResponse;
       }
 
       // If request is not cached, fetch it from the network
-      return fetch(event.request)
+      return fetch(request)
         .then((networkResponse) => {
           // Cache the fetched response
-          if (event.request.method === "GET") {
+          if (request.method === "GET") {
             const clonedResponse = networkResponse.clone();
             caches.open(cacheData).then((cache) => {
-              cache.put(event.request, clonedResponse);
+              cache.put(request, clonedResponse);
             });
           }
           return networkResponse;
