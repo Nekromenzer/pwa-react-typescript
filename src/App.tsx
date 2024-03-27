@@ -25,6 +25,7 @@ import ParallelSerial from "./pages/ParallelSerial";
 import Test from "./pages/Test";
 import Mutations from "./pages/Mutations";
 import Batching from "./pages/Batching";
+import Forms from "./pages/Forms";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const About = lazy(() => import("./pages/About"));
@@ -147,6 +148,14 @@ function App() {
         element={
           <SuspenseWrapper>
             <Batching />
+          </SuspenseWrapper>
+        }
+      />
+      <Route
+        path="forms"
+        element={
+          <SuspenseWrapper>
+            <Forms />
           </SuspenseWrapper>
         }
       />
