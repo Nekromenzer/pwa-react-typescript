@@ -26,6 +26,21 @@ const Parallel = () => {
         queryFn: fetchTeams,
         gcTime: 0,
       },
+      {
+        queryKey: ["teamsParallel1"],
+        queryFn: fetchTeams,
+        gcTime: 0,
+      },
+      {
+        queryKey: ["teamsParallel2"],
+        queryFn: fetchTeams,
+        gcTime: 0,
+      },
+      {
+        queryKey: ["teamsParallel3"],
+        queryFn: fetchTeams,
+        gcTime: 0,
+      },
     ],
   });
   // Note that since the queries above suspend rendering, no data
