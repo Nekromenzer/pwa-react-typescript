@@ -3,6 +3,10 @@ import Wrapper from "../components/Wrapper";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
+// mutation for form submission when offline and cancel the request
+// https://github.com/TanStack/query/discussions/1551#discussioncomment-7074992
+// https://github.com/TanStack/query/discussions/1551#discussioncomment-8726803
+
 const Forms = () => {
   const [data, setData] = React.useState({ name: "", email: "", message: "" });
 
@@ -24,6 +28,7 @@ const Forms = () => {
         },
       });
     },
+    retry: false,
   });
 
   const handleSubmit = () => {
