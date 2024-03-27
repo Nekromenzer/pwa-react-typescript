@@ -2,12 +2,14 @@ import React from "react";
 import Wrapper from "../components/Wrapper";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useIsAppOnline } from "../hooks/useIsAppOnline";
 
 // mutation for form submission when offline and cancel the request
 // https://github.com/TanStack/query/discussions/1551#discussioncomment-7074992
 // https://github.com/TanStack/query/discussions/1551#discussioncomment-8726803
 
 const Forms = () => {
+  const isOnline = useIsAppOnline();
   const [data, setData] = React.useState({ name: "", email: "", message: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +22,9 @@ const Forms = () => {
   submitFormData.append("email", data.email);
   submitFormData.append("message", data.message);
 
+  // https://tanstack.com/query/v4/docs/framework/react/reference/useMutation
   const handleSubmitApiCall: any = useMutation({
+    mutationKey: ["submitFormData"],
     mutationFn: (): any => {
       return axios.post("https://api.web3forms.com/submit", submitFormData, {
         headers: {
@@ -28,8 +32,16 @@ const Forms = () => {
         },
       });
     },
-    retry: false,
+    // failed mutations will retry infinitely.
+    retry: true,
+    // https://tanstack.com/query/v5/docs/framework/react/guides/network-mode
+    networkMode: "offlineFirst",
+    onSuccess: () => {
+      alert("Form submitted successfully");
+    },
   });
+
+  // error boundary - https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5#the-useerrorboundary-option-has-been-renamed-to-throwonerror
 
   const handleSubmit = () => {
     handleSubmitApiCall.mutate();
@@ -63,7 +75,11 @@ const Forms = () => {
       ) : null}
 
       {handleSubmitApiCall.isPending ? (
-        <div>Submitting...</div>
+        <div>
+          {isOnline
+            ? "Submitting..."
+            : "Offline , submitting will complete after network active!"}
+        </div>
       ) : (
         <div>
           <label htmlFor="name">Name:</label>
