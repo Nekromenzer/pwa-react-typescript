@@ -9,3 +9,10 @@ export const fetchData = () => {
 export const fetchCatData = () => {
   return axios.get("https://catfact.ninja/fact").then((res) => res.data);
 };
+
+// pass signal to cancel the request
+export const fetchDogData = async ({ signal }: any) => {
+  return await axios
+    .get("https://dog.ceo/api/breeds/image/random", { signal })
+    .then((res) => res.data);
+};

@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Wrapper from "../components/Wrapper";
-import { fetchCatData, fetchData } from "../api/api";
+import { fetchCatData, fetchData, fetchDogData } from "../api/api";
 import Section from "../components/Section";
 
 const Home = () => {
+  const queryClient = useQueryClient();
+
   //  Fetch data
   const {
     isPending: FBCDIsPending,
@@ -26,6 +28,12 @@ const Home = () => {
     enabled: !!FBCDData?.bpi?.USD?.rate,
   });
 
+  // fetch random data about dogs
+  const { data: dogData, isPending: isDogPending } = useQuery({
+    queryKey: ["fetchDogData"],
+    queryFn: fetchDogData,
+  });
+
   return (
     <Wrapper header="Fetch data list">
       <div>
@@ -42,6 +50,26 @@ const Home = () => {
           error={depenedError}
           data={depenedData?.fact}
         />
+
+        <h2>Cancel req - fetch random images</h2>
+        {/* which will cancel the query and revert it back to its previous state. */}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            queryClient.cancelQueries({
+              queryKey: ["fetchDogData"],
+            });
+          }}
+        >
+          Cancel
+        </button>
+        <div>
+          {isDogPending ? (
+            "Loading..."
+          ) : (
+            <img src={dogData?.message || ""} alt="dog" />
+          )}
+        </div>
       </div>
     </Wrapper>
   );
