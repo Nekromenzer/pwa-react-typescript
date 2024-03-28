@@ -37,7 +37,16 @@ const Forms = () => {
       });
     },
     // failed mutations will retry infinitely.
-    retry: true,
+    retry: (failureCount, error: any) => {
+      //  check if the error is 503, then stop retrying
+      if (error?.response?.status === 503) {
+        console.log("503 error");
+        localStorage.setItem("submitFormData", JSON.stringify(submitFormData));
+        return false;
+      }
+      //  retry 3 times
+      return failureCount < 3;
+    },
     retryDelay: 1000,
     // 10 min cache time for gc
     gcTime: 600000,
@@ -45,35 +54,35 @@ const Forms = () => {
     networkMode: "offlineFirst",
     onSuccess: () => {
       alert("Form submitted successfully");
-      offlineSubmitSave();
+      // offlineSubmitSave();
     },
     onMutate: async () => {
       await formsQueryClient.cancelQueries({ queryKey: ["submitFormData"] });
-      offlineSubmitSave();
+      // offlineSubmitSave();
     },
   });
 
-  const offlineSubmitSave = () => {
-    formsQueryClient.setMutationDefaults(["submitFormData"], {
-      onMutate: async () => {
-        const previousValue = formsQueryClient.getQueryData(["submitFormData"]);
-        formsQueryClient.setQueryData(["submitFormData"], (old: any) => {
-          return {
-            ...old,
-            data: { message: "Form submitted successfully" },
-          };
-        });
-        return previousValue;
-      },
-      onError: (error, variables, context) => {
-        formsQueryClient.setQueryData(["submitFormData"], context);
-      },
-    });
-  };
+  // const offlineSubmitSave = () => {
+  //   formsQueryClient.setMutationDefaults(["submitFormData"], {
+  //     onMutate: async () => {
+  //       const previousValue = formsQueryClient.getQueryData(["submitFormData"]);
+  //       formsQueryClient.setQueryData(["submitFormData"], (old: any) => {
+  //         return {
+  //           ...old,
+  //           data: { message: "Form submitted successfully" },
+  //         };
+  //       });
+  //       return previousValue;
+  //     },
+  //     onError: (error, variables, context) => {
+  //       formsQueryClient.setQueryData(["submitFormData"], context);
+  //     },
+  //   });
+  // };
 
   // error boundary - https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5#the-useerrorboundary-option-has-been-renamed-to-throwonerror
   const handleSubmit = () => {
-    handleSubmitApiCall.mutate();
+    handleSubmitApiCall.mutate({});
   };
 
   // Create the persister - use local storage
