@@ -36,10 +36,10 @@ function App() {
   const queryClient = new QueryClient();
 
   // Create the persister - use local storage
-  const persister = createAsyncStoragePersister({
-    storage: AsyncStorage,
-    throttleTime: 3000,
-  });
+  // const persister = createAsyncStoragePersister({
+  //   storage: AsyncStorage,
+  //   throttleTime: 3000,
+  // });
 
   // Indexed DB is faster, stores more than 5MB, and doesn't require serialization.
   // That means it can readily store Javascript native types, such as Date and File.

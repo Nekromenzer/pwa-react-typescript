@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useTransition } from "react";
 import Wrapper from "../components/Wrapper";
 import { QueryClient, useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -10,6 +10,7 @@ import { useIsAppOnline } from "../hooks/useIsAppOnline";
 
 const Forms = () => {
   const isOnline = useIsAppOnline();
+  const [isPending, startTransition] = useTransition();
   const [data, setData] = React.useState({ name: "", email: "", message: "" });
 
   const formsQueryClient = new QueryClient();
@@ -39,7 +40,7 @@ const Forms = () => {
       //  check if the error is 503, then stop retrying
       if (error?.response?.status === 503) {
         console.log("503 error");
-        localStorage.setItem("submitFormData", JSON.stringify(submitFormData));
+        localStorage.setItem("submitFormData", JSON.stringify(data));
         return false;
       }
       //  retry 3 times
@@ -62,27 +63,36 @@ const Forms = () => {
 
   // error boundary - https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5#the-useerrorboundary-option-has-been-renamed-to-throwonerror
   const handleSubmit = () => {
+    // check any fields are empty
+    if (!data.name || !data.email || !data.message) {
+      alert("All fields are required");
+      return;
+    }
     handleSubmitApiCall.mutate({});
   };
 
   useEffect(() => {
     const localCache = localStorage.getItem("submitFormData");
-    console.log(localCache, "localCache");
     if (localCache !== null && !handleSubmitApiCall.isPending) {
-      console.log(handleSubmitApiCall);
-      // handleSubmitApiCall.mutate();
-      // muatate call using local data
-    }
+      setData(JSON.parse(localCache));
 
-    return () => {
-      // cleanup
-      // remove local storage
+      // muatate call using local data
+      if (data.name !== "" && data.email !== "" && data.message !== "") {
+        handleSubmitApiCall.mutate({});
+      }
+
+      startTransition(() => {
+        localStorage.removeItem("submitFormData");
+      });
+    } else {
       localStorage.removeItem("submitFormData");
-    };
+    }
   }, []);
 
   return (
     <Wrapper header="Here we demonstrate form action with tanstack online/offline">
+      <br />
+      {isPending ? "cleaning local storage after offline data submit" : null}
       <br />
       {/* If the form submission is successful, the following message will be displayed */}
       {handleSubmitApiCall.isError ? (
@@ -118,11 +128,23 @@ const Forms = () => {
         <div>
           <label htmlFor="name">Name:</label>
           <br />
-          <input type="text" id="name" name="name" onChange={handleChange} />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            onChange={handleChange}
+            value={data.name}
+          />
           <br />
           <label htmlFor="email">Email:</label>
           <br />
-          <input type="email" id="email" name="email" onChange={handleChange} />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            onChange={handleChange}
+            value={data.email}
+          />
           <br />
           <label htmlFor="message">Message:</label>
           <br />
@@ -131,6 +153,7 @@ const Forms = () => {
             id="message"
             name="message"
             onChange={handleChange}
+            value={data.message}
           />
           <br />
           <br />
