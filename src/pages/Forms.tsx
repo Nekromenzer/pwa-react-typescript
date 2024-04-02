@@ -10,7 +10,6 @@ import { useIsAppOnline } from "../hooks/useIsAppOnline";
 
 const Forms = () => {
   const isOnline = useIsAppOnline();
-  const [isPending, startTransition] = useTransition();
   const [data, setData] = React.useState({ name: "", email: "", message: "" });
 
   const formsQueryClient = new QueryClient();
@@ -53,6 +52,7 @@ const Forms = () => {
     networkMode: "offlineFirst",
     onSuccess: () => {
       alert("Form submitted successfully");
+      localStorage.removeItem("submitFormData");
       // offlineSubmitSave();
     },
     onMutate: async () => {
@@ -77,22 +77,22 @@ const Forms = () => {
       setData(JSON.parse(localCache));
 
       // muatate call using local data
-      if (data.name !== "" && data.email !== "" && data.message !== "") {
+      if (
+        data.name !== "" &&
+        data.email !== "" &&
+        data.message !== "" &&
+        isOnline
+      ) {
         handleSubmitApiCall.mutate({});
       }
-
-      startTransition(() => {
-        localStorage.removeItem("submitFormData");
-      });
     } else {
       localStorage.removeItem("submitFormData");
     }
-  }, []);
+  }, [isOnline]);
 
   return (
     <Wrapper header="Here we demonstrate form action with tanstack online/offline">
       <br />
-      {isPending ? "cleaning local storage after offline data submit" : null}
       <br />
       {/* If the form submission is successful, the following message will be displayed */}
       {handleSubmitApiCall.isError ? (
