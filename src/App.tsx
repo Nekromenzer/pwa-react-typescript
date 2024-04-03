@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { get, set, del } from "idb-keyval"; // if u want to use indexDB
 import { QueryClient } from "@tanstack/react-query";
 import OfflineBanner from "./components/OfflineBanner";
+import { Notifications } from "react-push-notification";
 // custom hook for check online status
 import { useIsAppOnline } from "./hooks/useIsAppOnline";
 
